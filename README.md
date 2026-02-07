@@ -20,7 +20,7 @@ python main.py --config configs/default.yaml
 
 - **GPU**: NVIDIA RTX A5000 (or similar)
 - **CUDA**: 11.8+
-- **Python**: 3.9+
+- **Python**: 3.10
 - **OS**: Ubuntu 20.04+ / Linux
 
 ## Project Structure
