@@ -1,6 +1,6 @@
 # Vehicle Lights Detection + State Estimation Pipeline
 
-Real-time vehicle lights detection, tracking, and state estimation (ON/OFF/BLINKING) using Claude 4.5 architecture.
+Real-time vehicle lights detection, tracking, and state estimation (ON/OFF/BLINKING).
 
 ## Quick Start (One-Click Deployment)
 
