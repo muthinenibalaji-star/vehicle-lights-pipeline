@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+outputs/
+checkpoints/
+*.pth
+!models/.gitkeep
+
+# Data (large files)
+data/vehicle_lights/train/
+data/vehicle_lights/val/
+data/vehicle_lights/test/
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.avi
+
+# Logs
+*.log
+
+# Virtual env
+venv/
+.venv/

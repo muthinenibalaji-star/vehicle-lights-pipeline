@@ -1,0 +1,91 @@
+# Vehicle Lights Pipeline Configuration
+
+# Camera Settings
+camera:
+  source: 0  # 0 for webcam, or path to video file
+  resolution: [1920, 1080]
+  fps: 30
+  exposure: fixed  # fixed or auto
+  exposure_value: -5  # Used when exposure=fixed
+  white_balance: fixed  # fixed or auto
+  white_balance_temp: 4600  # Used when white_balance=fixed
+  buffer_size: 1  # Keep only newest frame
+
+# Detection Settings
+detection:
+  model_config: configs/rtmdet_m_vehicle_lights.py
+  checkpoint: models/rtmdet_m_vehicle_lights.pth
+  inference_resolution: [1920, 1080]
+  device: cuda:0
+  conf_threshold: 0.35
+  nms_threshold: 0.45
+  fp16: true  # Enable FP16 for faster inference on A5000
+
+# Tracking Settings
+tracking:
+  max_age: 30  # Frames before deleting lost track
+  min_hits: 3  # Minimum detections before track is confirmed
+  iou_threshold: 0.3
+  embedder: null  # null for IOU-only, or 'mobilenet' for ReID
+  max_det_per_class: 2  # Enforce pair constraint (left/right)
+
+# State Estimation Settings
+state:
+  # ON/OFF Detection
+  on_off:
+    method: contrast  # contrast or brightness
+    background_ring_ratio: 1.5  # Ring width = bbox_width * ratio
+    eps: 1e-6
+    baseline_update_frames: 30  # Update OFF baseline when stable
+    hysteresis_margin: 0.15
+    
+  # BLINKING Detection
+  blinking:
+    window_seconds: 2.0
+    min_toggles: 2
+    min_on_frames: 5
+    min_off_frames: 5
+    min_half_period_frames: 7
+    max_half_period_frames: 18
+    warmup_frames: 30  # Skip blinking detection for first N frames of new track
+
+# Logging Settings
+logging:
+  output_dir: outputs/logs
+  format: json  # json or csv
+  log_every_frame: true  # Log even empty frames
+  bbox_format: xywh  # xywh (top-left) or xyxy
+
+# Overlay Settings (Optional)
+overlay:
+  enabled: false  # Enable visualization
+  mode: live  # live, mp4, or both
+  output_dir: outputs/videos
+  show_bbox: true
+  show_track_id: true
+  show_state: true
+  show_confidence: true
+  show_fps: true
+  font_scale: 0.6
+  thickness: 2
+
+# Performance Settings
+performance:
+  num_threads: 4  # OpenCV/NumPy threads
+  prefetch_frames: 2
+  profile: false  # Enable profiling output
+
+# Class Names (DO NOT MODIFY ORDER)
+classes:
+  - front_headlight_left
+  - front_headlight_right
+  - front_indicator_left
+  - front_indicator_right
+  - front_all_weather_left
+  - front_all_weather_right
+  - rear_brake_left
+  - rear_brake_right
+  - rear_indicator_left
+  - rear_indicator_right
+  - rear_tailgate_left
+  - rear_tailgate_right
